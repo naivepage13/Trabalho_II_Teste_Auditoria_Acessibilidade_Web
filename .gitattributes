@@ -1,0 +1,7 @@
+# Texto sempre com LF no repositório e no checkout (evita avisos LF/CRLF no Windows)
+* text=auto eol=lf
+
+# Binários: o Git nunca deve converter quebras de linha neles (o PDF corromperia)
+*.pdf  binary
+*.png  binary
+*.webp binary

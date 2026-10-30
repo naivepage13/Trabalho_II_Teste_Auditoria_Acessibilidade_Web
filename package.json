@@ -1,0 +1,24 @@
+{
+  "name": "portal-techinclusiva-acessibilidade",
+  "version": "1.0.0",
+  "description": "Auditoria automatizada de acessibilidade (WCAG 2.1 A/AA) do Portal TechInclusiva com axe-core CLI + parser Python",
+  "private": true,
+  "scripts": {
+    "serve": "python -m http.server 8080",
+    "audit": "axe http://localhost:8080/index.html --tags wcag2a,wcag2aa,wcag21a,wcag21aa,best-practice --save resultado_axe.json",
+    "audit:corrigido": "axe http://localhost:8080/corrigido/index.html --tags wcag2a,wcag2aa,wcag21a,wcag21aa,best-practice --save resultado_axe_corrigido.json",
+    "report": "python parser.py resultado_axe.json --corrigido resultado_axe_corrigido.json --github https://github.com/naivepage13/Trabalho_II_Teste_Auditoria_Acessibilidade_Web --integrantes \"Arthur Moreira Santos\""
+  },
+  "devDependencies": {
+    "@axe-core/cli": "^4.10.0",
+    "chromedriver": "^156.0.2"
+  },
+  "overrides": {
+    "chromedriver": "$chromedriver"
+  },
+  "author": "Arthur Moreira Santos",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/naivepage13/Trabalho_II_Teste_Auditoria_Acessibilidade_Web.git"
+  }
+}

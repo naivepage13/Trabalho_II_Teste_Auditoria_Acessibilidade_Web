@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<!-- Portal TechInclusiva - VERSÃO ORIGINAL (com barreiras de acessibilidade) -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Notícias sobre tecnologia, inclusão e acessibilidade digital.">
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+  <!-- FALHA: sem <title> e sem atributo lang no <html> -->
+  <!-- FALHA: zoom bloqueado (user-scalable=no) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <!-- FALHA: atualizacao automatica da pagina sem controle do usuario -->
+  <meta http-equiv="refresh" content="1800">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; color: #222; background: #fff; }
+    /* FALHA: remove o indicador de foco do teclado */
+    *:focus { outline: none; }
+    .topo { background: #0b3d91; padding: 12px 24px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .topo img { height: 40px; }
+    .menu a { color: #7fa8e8; text-decoration: none; margin-right: 14px; } /* FALHA: contraste baixo */
+    .busca { margin-left: auto; display: flex; gap: 6px; }
+    .busca input { padding: 6px; }
+    .busca button { width: 36px; height: 32px; border: 0; background: #e9b400; }
+    .conteudo { max-width: 960px; margin: 0 auto; padding: 24px; }
+    .titulo-site { font-size: 30px; font-weight: bold; margin: 8px 0 16px; }
+    .destaque img { width: 100%; max-height: 320px; object-fit: cover; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 20px; }
+    .card { border: 1px solid #ddd; padding: 12px; }
+    .card img { width: 100%; }
+    .data { color: #aaaaaa; font-size: 13px; }               /* FALHA: contraste baixo */
+    p a { color: #4a6fa5; text-decoration: none; }            /* FALHA: link distinguido so pela cor */
+    .aviso { background: #f2f2f2; color: #999; padding: 10px; } /* FALHA: contraste baixo */
+    .newsletter { background: #f5f7fb; padding: 16px; margin-top: 24px; }
+    .newsletter input, .newsletter select { display: block; margin: 8px 0; padding: 6px; width: 260px; }
+    table { border-collapse: collapse; margin-top: 16px; }
+    td, th { border: 1px solid #ccc; padding: 6px 12px; }
+    footer { background: #222; color: #bbb; padding: 20px 24px; margin-top: 30px; }
+
+    /* ===== Conteúdo editorial: notícias, seções, matéria completa, WCAG, rodapé ===== */
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    .secao, .materia, .mais-lidas, #wcag { scroll-margin-top: 16px; }
+    .card[id], .cartao[id] { scroll-margin-top: 16px; }
+    .hoje { margin: 0; font-size: 14px; color: #595959; }
+    .topicos { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 10px 0 0; }
+    .topicos a { display: inline-block; padding: 6px 14px; border-radius: 999px; background: #e8efff; border: 1px solid #b9ccf5; color: #0b3d91; text-decoration: none; font-size: 14px; }
+    .secao { margin-top: 40px; }
+    .secao-titulo { margin: 0; padding-bottom: 8px; border-bottom: 3px solid #0b3d91; font-size: 22px; }
+    .secao-politica .secao-titulo { border-color: #3a4fb5; }
+    .secao-tecnologia .secao-titulo { border-color: #0e7490; }
+    .secao-esportes .secao-titulo { border-color: #c2410c; }
+    .secao-cultura .secao-titulo { border-color: #a21caf; }
+    .grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 16px; }
+    .cartao { border: 1px solid #ddd; background: #fff; }
+    .cartao img, .card img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+    .card img[src$=".webp"] { object-position: center 70%; }
+    .cartao .corpo { padding: 12px 14px 16px; }
+    .kicker { margin: 0 0 4px; font-size: 12px; font-weight: bold; letter-spacing: .06em; text-transform: uppercase; color: #0b3d91; }
+    .secao-politica .kicker { color: #2f3f94; }
+    .secao-tecnologia .kicker { color: #0e6378; }
+    .secao-esportes .kicker { color: #b23a0c; }
+    .secao-cultura .kicker { color: #8a1799; }
+    .cartao h3, .cartao h4 { margin: 0 0 6px; font-size: 18px; line-height: 1.3; }
+    .meta { margin: 0 0 8px; font-size: 13px; color: #595959; }
+    .cartao .corpo p:last-child { margin: 0; font-size: 15px; color: #333; }
+    .materia { margin-top: 40px; padding: 24px 28px; background: #f7f9fd; border-left: 5px solid #0b3d91; }
+    .materia h2, .materia h4 { margin: 0 0 6px; font-size: 26px; line-height: 1.25; }
+    .materia p { max-width: 68ch; line-height: 1.7; }
+    .materia .meta, .materia .kicker { margin-bottom: 8px; }
+    .materia blockquote { margin: 20px 0; padding: 4px 20px; border-left: 4px solid #e9b400; font-size: 20px; font-style: italic; color: #14213d; max-width: 60ch; }
+    .materia blockquote p { margin: 0; }
+    .pilares { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-top: 16px; }
+    .pilar { padding: 14px 16px; border: 1px solid #ddd; border-top: 5px solid #0b3d91; background: #fff; }
+    .pilar:nth-child(2) { border-top-color: #0e7490; }
+    .pilar:nth-child(3) { border-top-color: #c2410c; }
+    .pilar:nth-child(4) { border-top-color: #a21caf; }
+    .pilar h3, .pilar h4 { margin: 0 0 6px; font-size: 18px; }
+    .pilar p { margin: 0; font-size: 15px; }
+    .mais-lidas { margin-top: 40px; }
+    .mais-lidas ol { counter-reset: n; list-style: none; padding: 0; margin: 14px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4px 28px; }
+    .mais-lidas li { counter-increment: n; display: flex; gap: 14px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid #e3e6ee; }
+    .mais-lidas li::before { content: counter(n); min-width: 26px; font-size: 28px; font-weight: bold; color: #0b3d91; }
+    .mais-lidas a { color: #14213d; font-weight: bold; text-decoration: underline; }
+    video { max-width: 100%; height: auto; background: #000; }
+    iframe { display: block; width: 100%; max-width: 640px; height: 260px; border: 1px solid #ccc; }
+    .ultimas li, .ultimas div { margin: 8px 0; }
+    .newsletter .intro { margin: 0 0 8px; max-width: 52ch; }
+    footer .rodape { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 2fr; gap: 28px; }
+    footer h2, footer h4 { margin: 0 0 8px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: #fff; }
+    footer ul { list-style: none; margin: 0; padding: 0; }
+    footer li { margin: 6px 0; }
+    footer a, footer p a { color: #fff; text-decoration: underline; }
+    footer p { margin: 6px 0; color: #ccc; font-size: 14px; }
+    footer .marca { margin: 0 0 6px; font-size: 22px; font-weight: bold; color: #fff; }
+    footer .copy { max-width: 960px; margin: 22px auto 0; padding-top: 14px; border-top: 1px solid #444; }
+    @media (max-width: 760px) { footer .rodape { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 520px) {
+      .conteudo { padding: 16px; }
+      .materia { padding: 18px; }
+      .titulo-site, h1 { font-size: 24px; }
+      footer .rodape { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="topo">
+    <!-- FALHA: link so com imagem sem texto alternativo -->
+    <a href="/"><img src="img/logo.svg"></a>
+
+    <div class="menu">
+      <a href="#politica">Política</a>
+      <a href="#tecnologia">Tecnologia</a>
+      <a href="#esportes">Esportes</a>
+      <!-- FALHA: link vazio -->
+      <a href="#cultura"></a>
+    </div>
+
+    <div class="busca">
+      <!-- FALHA: campo sem label (placeholder nao substitui rotulo) -->
+      <input type="text" placeholder="Buscar notícias">
+      <!-- FALHA: botao so com icone, sem nome acessivel -->
+      <button><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="10" cy="10" r="6" fill="none" stroke="#222" stroke-width="2"/><line x1="15" y1="15" x2="21" y2="21" stroke="#222" stroke-width="2"/></svg></button>
+    </div>
+  </div>
+
+  <div class="conteudo">
+    <!-- FALHA: sem <h1>, sem <main> e sem landmarks -->
+    <div class="titulo-site">Portal TechInclusiva - Notícias</div>
+
+    <section aria-label="Hoje e tópicos em alta">
+      <p class="hoje">Sexta-feira, 30 de outubro de 2026 · Atualizado às 09h40</p>
+      <ul class="topicos"><li><a href="#wcag">WCAG 2.1</a></li><li><a href="#n-leitores">Leitores de tela</a></li><li><a href="#n-libras">Libras</a></li><li><a href="#n-futebol5">Audiodescrição</a></li><li><a href="#esportes">Esportes adaptados</a></li><li><a href="#tecnologia">Tecnologia assistiva</a></li></ul>
+    </section>
+
+    <div class="destaque">
+      <!-- FALHA: imagem sem alt -->
+      <img src="img/destaque.svg">
+      <!-- FALHA: salto de nivel de titulo (de nada direto para h4) -->
+      <h4>Conferência global discute o futuro da acessibilidade digital</h4>
+      <p class="data">Publicado em 30/10/2026 por Redação TechInclusiva</p>
+      <p>Especialistas de vários países debateram como a <a href="#wcag">WCAG 2.1</a> pode ser aplicada nas redações digitais e quais ferramentas ajudam a encontrar barreiras logo no desenvolvimento. Durante três dias, mais de 1.200 participantes acompanharam painéis, oficinas práticas e demonstrações de tecnologias assistivas, todos com legendas ao vivo e interpretação em Libras.</p>
+      <!-- FALHA: elemento interativo dentro de outro (link com botao) -->
+      <a href="#materia"><button>Ler matéria completa</button></a>
+    </div>
+
+    <div class="cards">
+      <div class="card" id="n-leitores">
+        <img src="img/noticia1.svg">
+        <h4>Leitores de tela ganham suporte nativo</h4>
+        <p class="data">29/10/2026</p>
+        <!-- FALHA: código de idioma inválido (pt_BR em vez de pt-BR) -->
+        <p lang="pt_BR">Nova versão melhora a leitura de tabelas e formulários e passa a anunciar mudanças dinâmicas na página sem que o usuário precise navegar até elas.</p>
+      </div>
+      <div class="card" id="n-teclados">
+        <img src="img/teclado_adaptado.webp">
+        <h4>Teclados adaptados chegam às escolas</h4>
+        <p class="data">28/10/2026</p>
+        <p>Programa distribui equipamentos com teclas ampliadas e alto contraste para estudantes com deficiência motora ou baixa visão em 120 escolas da rede pública.</p>
+        <!-- FALHA: titulo vazio -->
+        <h3></h3>
+      </div>
+    </div>
+
+    <section id="politica" class="secao secao-politica" aria-label="Política">
+      <h4 class="secao-titulo">Política</h4>
+      <div class="grade">
+        <article class="cartao" id="n-prazo">
+          <img src="img/politica-prazo.svg" width="640" height="360" alt="Fachada de um prédio público com colunas ao lado de uma janela de navegador com o selo de conformidade AA">
+          <div class="corpo">
+            <p class="kicker">Política</p>
+            <h4>Comissão aprova prazo de 12 meses para sites públicos se adequarem à acessibilidade</h4>
+            <p class="meta"><time datetime="2026-10-29">29/10/2026</time> · 3 min de leitura</p>
+            <p>Texto exige conformidade com a WCAG 2.1 nível AA em portais e aplicativos de órgãos públicos e prevê relatórios anuais de acessibilidade.</p>
+          </div>
+        </article>
+        <article class="cartao" id="n-libras">
+          <img src="img/politica-libras.svg" width="640" height="360" alt="Mão aberta fazendo um sinal de Libras ao lado de um balão de fala e de três pessoas da plateia">
+          <div class="corpo">
+            <p class="kicker">Política</p>
+            <h4>Audiência pública debate Libras em serviços digitais do governo</h4>
+            <p class="meta"><time datetime="2026-10-27">27/10/2026</time> · 4 min de leitura</p>
+            <p>Representantes da comunidade surda pediram intérpretes em vídeo, janelas de Libras em transmissões oficiais e atendimento digital em língua de sinais.</p>
+          </div>
+        </article>
+        <article class="cartao" id="n-guia">
+          <img src="img/politica-guia.svg" width="640" height="360" alt="Lista de verificação com itens marcados ao lado de uma lupa, com a silhueta de uma cidade ao fundo">
+          <div class="corpo">
+            <p class="kicker">Política</p>
+            <h4>Prefeituras recebem guia para contratar tecnologia acessível</h4>
+            <p class="meta"><time datetime="2026-10-25">25/10/2026</time> · 3 min de leitura</p>
+            <p>Material reúne cláusulas-modelo para licitações e um checklist de testes para que cidades de qualquer porte exijam acessibilidade de seus fornecedores.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="tecnologia" class="secao secao-tecnologia" aria-label="Tecnologia">
+      <h4 class="secao-titulo">Tecnologia</h4>
+      <div class="grade">
+        <article class="cartao" id="n-ia">
+          <img src="img/tecnologia-descricao.svg" width="640" height="360" alt="Foto de uma paisagem com uma seta apontando para um balão de texto alternativo e um chip de inteligência artificial">
+          <div class="corpo">
+            <p class="kicker">Tecnologia</p>
+            <h4>Ferramentas de IA sugerem descrições de imagens, mas a revisão humana segue essencial</h4>
+            <p class="meta"><time datetime="2026-10-29">29/10/2026</time> · 4 min de leitura</p>
+            <p>Testes mostram avanço na identificação de objetos e cenas, mas erros de contexto ainda exigem que editores revisem o texto alternativo antes de publicar.</p>
+          </div>
+        </article>
+        <article class="cartao" id="n-foco">
+          <img src="img/tecnologia-foco.svg" width="640" height="360" alt="Janela de navegador com um botão envolto por um contorno amarelo de foco e uma tecla Tab em destaque">
+          <div class="corpo">
+            <p class="kicker">Tecnologia</p>
+            <h4>Navegadores passam a destacar o foco do teclado por padrão</h4>
+            <p class="meta"><time datetime="2026-10-28">28/10/2026</time> · 2 min de leitura</p>
+            <p>Mudança deve reduzir um dos problemas mais comuns da web: páginas que escondem o contorno que mostra onde o usuário está ao navegar com a tecla Tab.</p>
+          </div>
+        </article>
+        <article class="cartao" id="n-testes">
+          <img src="img/tecnologia-testes.svg" width="640" height="360" alt="Etapas de um pipeline com uma delas em alerta, um terminal com testes aprovados e um indicador de 7 em 10">
+          <div class="corpo">
+            <p class="kicker">Tecnologia</p>
+            <h4>Testes automatizados de acessibilidade já fazem parte da rotina de 7 em cada 10 equipes</h4>
+            <p class="meta"><time datetime="2026-10-27">27/10/2026</time> · 5 min de leitura</p>
+            <p>Levantamento com 300 equipes de produto indica que ferramentas como o axe-core entram cada vez mais cedo no desenvolvimento, mas a revisão manual continua indispensável.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="esportes" class="secao secao-esportes" aria-label="Esportes">
+      <h4 class="secao-titulo">Esportes</h4>
+      <div class="grade">
+        <article class="cartao" id="n-esports">
+          <img src="img/esportes-esports.svg" width="640" height="360" alt="Monitor exibindo um jogo ao lado de um controle adaptável de botões grandes e de um troféu dourado">
+          <div class="corpo">
+            <p class="kicker">Esportes</p>
+            <h4>Campeonato de e-sports inclusivo reúne 32 equipes e controles adaptados</h4>
+            <p class="meta"><time datetime="2026-10-29">29/10/2026</time> · 3 min de leitura</p>
+            <p>A competição liberou controles adaptáveis, legendas em tempo real e modo de alto contraste. A Equipe Alfa lidera a tabela com 42 pontos.</p>
+          </div>
+        </article>
+        <article class="cartao" id="n-torneio">
+          <img src="img/esportes-paralimpiadas.svg" width="640" height="360" alt="Atleta em cadeira de rodas de corrida em uma pista de atletismo, com uma medalha dourada no canto da imagem">
+          <div class="corpo">
+            <p class="kicker">Esportes</p>
+            <h4>Torneio escolar de esportes adaptados bate recorde de inscrições</h4>
+            <p class="meta"><time datetime="2026-10-26">26/10/2026</time> · 3 min de leitura</p>
+            <p>Mais de 4 mil estudantes vão disputar provas de atletismo, natação e bocha. A organização ampliou o transporte adaptado e as equipes de apoio.</p>
+          </div>
+        </article>
+        <article class="cartao" id="n-futebol5">
+          <img src="img/esportes-futebol5.svg" width="640" height="360" alt="Campo de futebol visto de cima com uma bola sonora emitindo ondas e um fone de ouvido em destaque">
+          <div class="corpo">
+            <p class="kicker">Esportes</p>
+            <h4>Final do futebol de 5 terá transmissão com audiodescrição</h4>
+            <p class="meta"><time datetime="2026-10-24">24/10/2026</time> · 2 min de leitura</p>
+            <p>Narradores vão descrever posicionamento, jogadas e placar para o público com deficiência visual, e a arquibancada terá áreas sinalizadas com piso tátil.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="cultura" class="secao secao-cultura" aria-label="Cultura">
+      <h4 class="secao-titulo">Cultura</h4>
+      <div class="grade">
+        <article class="cartao" id="n-museu">
+          <img src="img/cultura-museu.svg" width="640" height="360" alt="Sala de museu com quadros na parede, uma visitante com fones de audioguia e um painel tátil sendo tocado">
+          <div class="corpo">
+            <p class="kicker">Cultura</p>
+            <h4>Museu lança visitas guiadas em Libras e com audiodescrição</h4>
+            <p class="meta"><time datetime="2026-10-28">28/10/2026</time> · 3 min de leitura</p>
+            <p>Os roteiros incluem réplicas táteis, legendas em braille e guias treinados. As visitas acontecem aos sábados e podem ser agendadas pelo site.</p>
+          </div>
+        </article>
+        <article class="cartao" id="n-cinema">
+          <img src="img/cultura-cinema.svg" width="640" height="360" alt="Sala de cinema com a tela exibindo uma paisagem, legendas na parte inferior e os selos CC e AD">
+          <div class="corpo">
+            <p class="kicker">Cultura</p>
+            <h4>Festival de cinema exibirá todos os filmes com legendas e audiodescrição</h4>
+            <p class="meta"><time datetime="2026-10-26">26/10/2026</time> · 3 min de leitura</p>
+            <p>As sessões terão legendas descritivas para pessoas surdas e ensurdecidas, audiodescrição por aplicativo e espaço reservado para cadeiras de rodas.</p>
+          </div>
+        </article>
+        <article class="cartao" id="n-livros">
+          <img src="img/cultura-livro.svg" width="640" height="360" alt="Livro aberto com uma página em texto e outra em braille, fones de ouvido sobre ele e uma estante colorida ao fundo">
+          <div class="corpo">
+            <p class="kicker">Cultura</p>
+            <h4>Livros em formato acessível chegam a bibliotecas comunitárias</h4>
+            <p class="meta"><time datetime="2026-10-23">23/10/2026</time> · 2 min de leitura</p>
+            <p>O acervo reúne obras em braille, audiolivros e e-books compatíveis com leitores de tela, e conta com monitores para ajudar no empréstimo.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="mais-lidas" class="mais-lidas" aria-label="Mais lidas">
+      <h4 class="secao-titulo">Mais lidas</h4>
+      <ol>
+        <li><a href="#n-teclados">Teclados adaptados chegam às escolas</a></li>
+        <li><a href="#n-prazo">Comissão aprova prazo de 12 meses para sites públicos se adequarem à acessibilidade</a></li>
+        <li><a href="#n-foco">Navegadores passam a destacar o foco do teclado por padrão</a></li>
+        <li><a href="#n-esports">Campeonato de e-sports inclusivo reúne 32 equipes e controles adaptados</a></li>
+        <li><a href="#n-museu">Museu lança visitas guiadas em Libras e com audiodescrição</a></li>
+        <li><a href="#n-leitores">Leitores de tela ganham suporte nativo</a></li>
+      </ol>
+    </section>
+
+    <section id="materia" class="materia" aria-label="Matéria completa">
+      <p class="kicker">Matéria completa</p>
+      <h4>Conferência global discute o futuro da acessibilidade digital</h4>
+      <p class="meta">Publicado em <time datetime="2026-10-30">30/10/2026</time> por Redação TechInclusiva · 4 min de leitura</p>
+      <p>A terceira edição da Conferência Global de Acessibilidade Digital terminou nesta sexta-feira (30) com um recado direto às redações: acessibilidade não é uma etapa final, é requisito de projeto. Ao longo de três dias, mais de 1.200 participantes de 40 países acompanharam painéis, oficinas e demonstrações de tecnologias assistivas.</p>
+      <p>Na palestra de abertura, a coordenadora de um laboratório de interfaces inclusivas apresentou um estudo em que mais de 90% das páginas analisadas tinham ao menos uma barreira detectável por ferramentas automáticas, como imagens sem texto alternativo, contraste insuficiente e formulários sem rótulo.</p>
+      <blockquote><p>Acessibilidade não é um recurso extra: é o que garante que a notícia chegue a todas as pessoas.</p></blockquote>
+      <p>Os debates também trataram da aplicação da WCAG 2.1 no dia a dia das redações. A recomendação foi combinar testes automatizados, que encontram falhas repetitivas com rapidez, e verificações manuais, como navegar só pelo teclado e testar com leitores de tela, que revelam problemas de uso real.</p>
+      <p>Uma das oficinas mais concorridas mostrou como integrar o axe-core ao processo de desenvolvimento para que cada alteração no código seja auditada automaticamente, com relatórios que classificam as falhas por severidade e indicam o critério da WCAG violado.</p>
+      <p>Todas as sessões tiveram legendas ao vivo e interpretação em Libras, e a transmissão ficará disponível com transcrição completa. A próxima edição já tem data marcada: outubro de 2027.</p>
+    </section>
+
+    <section id="wcag" class="secao" aria-label="Entenda a WCAG 2.1">
+      <h4 class="secao-titulo">Entenda a WCAG 2.1</h4>
+      <p>A WCAG 2.1, das Diretrizes de Acessibilidade para Conteúdo Web, organiza-se em quatro princípios e três níveis de conformidade (A, AA e AAA). O nível AA costuma ser a referência para sites de notícias e serviços públicos.</p>
+      <div class="pilares">
+        <article class="pilar"><h4>Perceptível</h4><p>A informação precisa chegar por mais de um canal: texto alternativo em imagens, legendas em vídeos e contraste suficiente entre texto e fundo.</p></article>
+        <article class="pilar"><h4>Operável</h4><p>Tudo deve funcionar só com o teclado, dar tempo suficiente para a leitura e evitar conteúdo que possa provocar convulsões.</p></article>
+        <article class="pilar"><h4>Compreensível</h4><p>Textos legíveis, comportamento previsível e ajuda para evitar e corrigir erros, principalmente em formulários.</p></article>
+        <article class="pilar"><h4>Robusto</h4><p>O conteúdo deve funcionar em diferentes navegadores e tecnologias assistivas, com HTML semântico e uso correto de ARIA.</p></article>
+      </div>
+    </section>
+
+    <h4>Reportagem em vídeo</h4>
+    <!-- FALHA: video sem legendas/transcricao -->
+    <video controls width="480" preload="none" poster="img/video-poster.svg">
+      <source src="video/reportagem.mp4" type="video/mp4">
+    </video>
+
+    <h4>Mapa da redação</h4>
+    <!-- FALHA: iframe sem title -->
+    <iframe src="mapa-redacao.html" width="320" height="140"></iframe>
+
+    <h4>Últimas notícias</h4>
+    <!-- FALHA: <ul> com filho que nao e <li> -->
+    <ul class="ultimas">
+      <div>08h30 · Novo padrão de contraste é aprovado</div>
+      <li>09h05 · Empresas adotam testes automatizados</li>
+      <li>09h40 · Plataforma de vídeo libera legendas automáticas em português</li>
+      <li>10h15 · Biblioteca digital amplia acervo em formato acessível</li>
+      <li>11h05 · Aplicativo de transporte adiciona avisos sonoros de embarque</li>
+      <li>12h30 · Prefeitura lança canal de atendimento em Libras</li>
+      <li>13h10 · Seleção de e-sports abre inscrições para jogadores com deficiência</li>
+    </ul>
+
+    <!-- FALHA: elemento focavel dentro de area aria-hidden -->
+    <div aria-hidden="true"><a href="#anuncio">Anúncio patrocinado</a></div>
+
+    <!-- FALHA: tabindex positivo altera a ordem natural de foco -->
+    <div tabindex="3" class="aviso">Aviso: esta página é atualizada a cada 30 minutos.</div>
+
+    <!-- FALHA: role checkbox sem aria-checked -->
+    <div role="checkbox" tabindex="0">Modo escuro</div>
+
+    <table>
+      <caption>Placar do campeonato de e-sports</caption>
+      <!-- FALHA: cabecalho de tabela vazio -->
+      <tr><th></th><th>Jogos</th><th>Vitórias</th><th>Pontos</th></tr>
+      <tr><td>Equipe Alfa</td><td>14</td><td>14</td><td>42</td></tr>
+      <tr><td>Equipe Beta</td><td>14</td><td>12</td><td>37</td></tr>
+      <tr><td>Equipe Gama</td><td>14</td><td>10</td><td>33</td></tr>
+      <tr><td>Equipe Delta</td><td>14</td><td>8</td><td>29</td></tr>
+      <tr><td>Equipe Ômega</td><td>14</td><td>7</td><td>24</td></tr>
+      <tr><td>Equipe Sigma</td><td>14</td><td>5</td><td>18</td></tr>
+    </table>
+
+    <div class="newsletter">
+      <h4>Receba nossa newsletter</h4>
+      <p class="intro">Todas as manhãs, um resumo das principais notícias de tecnologia, inclusão e acessibilidade, direto no seu e-mail.</p>
+      <!-- FALHA: campos sem label / autocomplete invalido / select sem rotulo -->
+      <input type="text" name="nome" autocomplete="nome-completo" placeholder="Seu nome">
+      <input type="email" name="email" placeholder="Seu e-mail">
+      <select name="editoria">
+        <option>Todas as editorias</option>
+        <option>Tecnologia</option>
+        <option>Cultura</option>
+      </select>
+      <input type="checkbox" name="aceite"> Aceito receber e-mails
+      <br><br>
+      <button type="submit">Assinar</button>
+    </div>
+  </div>
+
+  <footer>
+  <div class="rodape">
+    <div>
+      <p class="marca">TechInclusiva</p>
+      <p>Jornalismo sobre tecnologia, inclusão e acessibilidade digital, produzido com a participação de pessoas com deficiência.</p>
+    </div>
+    <nav aria-label="Editorias do rodapé">
+      <h4>Editorias</h4>
+      <ul><li><a href="#politica">Política</a></li><li><a href="#tecnologia">Tecnologia</a></li><li><a href="#esportes">Esportes</a></li><li><a href="#cultura">Cultura</a></li></ul>
+    </nav>
+    <nav aria-label="Institucional">
+      <h4>Institucional</h4>
+      <ul><li><a href="#acessibilidade">Declaração de acessibilidade</a></li><li><a href="#wcag">Entenda a WCAG 2.1</a></li><li><a href="#mais-lidas">Mais lidas</a></li></ul>
+    </nav>
+    <div id="acessibilidade">
+      <h4>Contato</h4>
+      <p>Rua da Acessibilidade, 100 · Centro</p>
+      <p>contato@techinclusiva.example</p>
+      <p>Encontrou uma barreira de acessibilidade neste portal? Escreva para <a href="mailto:acessibilidade@techinclusiva.example">acessibilidade@techinclusiva.example</a>.</p>
+    </div>
+  </div>
+  <p class="copy">&copy; 2026 TechInclusiva. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

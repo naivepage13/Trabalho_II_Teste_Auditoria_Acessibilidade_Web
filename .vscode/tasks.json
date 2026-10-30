@@ -1,0 +1,31 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "1. Servir site (porta 8080)",
+      "type": "shell",
+      "command": "python -m http.server 8080",
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated" }
+    },
+    {
+      "label": "2. Auditar com Axe CLI (original)",
+      "type": "shell",
+      "command": "npm run audit",
+      "problemMatcher": []
+    },
+    {
+      "label": "3. Auditar com Axe CLI (corrigido)",
+      "type": "shell",
+      "command": "npm run audit:corrigido",
+      "problemMatcher": []
+    },
+    {
+      "label": "4. Gerar relatório (parser.py)",
+      "type": "shell",
+      "command": "npm run report",
+      "problemMatcher": []
+    }
+  ]
+}
